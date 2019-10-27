@@ -1,10 +1,12 @@
-const Express = require("express");
+ const Express = require("express");
 const Mongoose = require("mongoose");
 const BodyParser = require("body-parser");
 const cors = require('cors')
 
 const info = require("../package.json");
 const filmRoutes = require("./routes/film");
+const serieRoutes = require("./routes/serie");
+
 
 const app = Express();
 
@@ -23,6 +25,8 @@ app.get("/",(request, response) => {
 
 // Films routes
 filmRoutes(app);
+// series routes
+serieRoutes(app);
 
 app.listen(5000, () => {
     console.log("listeninig at :5000 ...")
