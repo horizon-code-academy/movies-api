@@ -23,9 +23,9 @@ module.exports = router => {
   });
 
   // Get series list paginated end-point
-  router.get("/series/:pagenum", (request, response) => {
+  router.get("/series/:pagesize/:pagenum", (request, response) => {
     serieModel
-      .paginate({}, { page: request.params.pagenum, limit: 4 })
+      .paginate({}, { page: request.params.pagenum, limit: request.params.pagesize })
       .then(result => {
         response.send(result);
       })

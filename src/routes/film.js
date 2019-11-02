@@ -23,9 +23,9 @@ module.exports = router => {
   });
 
   // Get films list paginated end-point
-  router.get("/films/:pagenum", (request, response) => {
+  router.get("/films/:pagesize/:pagenum", (request, response) => {
     filmModel
-      .paginate({}, { page: request.params.pagenum, limit: 4 })
+      .paginate({}, { page: request.params.pagenum, limit: request.params.pagesize })
       .then(result => {
         response.send(result);
       })
