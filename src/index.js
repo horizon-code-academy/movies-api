@@ -1,41 +1,26 @@
- const Express = require("express");
-const Mongoose = require("mongoose");
-const BodyParser = require("body-parser");
-const cors = require('cors')
+import Express from "express";
+import BodyParser from "body-parser";
+import cors from "cors";
+import { port } from "./config/env";
+import routes from "./routes"
 
-const info = require("../package.json");
-const filmRoutes = require("./routes/film");
-const serieRoutes = require("./routes/serie");
+// connect to db
+import "./config/db";
 
-
+// init Express server
 const app = Express();
 
-app.use(cors())
+// enable CORS
+app.use(cors());
 
+// enable body parser
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
-// set up Mongoose connection
-Mongoose.connect("mongodb://localhost/filmsdb", { useNewUrlParser: true });
+// config routes
+app.use('/', routes);
 
-// Root "/" page. 
-app.get("/",(request, response) => {
-   response.json({version: info.version});
+// listen for requests
+app.listen(port, () => {
+  console.warn("Server is listening on port: " + port);
 });
-
-// Films routes
-filmRoutes(app);
-// series routes
-serieRoutes(app);
-
-app.listen(5000, () => {
-    console.log("listeninig at :5000 ...")
-});
-
-
-
-
-
-
-
-

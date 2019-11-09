@@ -1,5 +1,5 @@
-const mongoose = require("mongoose")
-const paginate = require("mongoose-paginate")
+import mongoose from "mongoose";
+import paginate from "mongoose-paginate";
 
 // Serie schema
 const serieSchema = new mongoose.Schema({
@@ -17,4 +17,4 @@ const serieSchema = new mongoose.Schema({
 serieSchema.plugin(paginate);
 
 // export serie model 
-module.exports = mongoose.model("serie", serieSchema)
+export default mongoose.model("serie", serieSchema)
