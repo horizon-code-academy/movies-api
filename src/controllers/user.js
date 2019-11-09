@@ -1,14 +1,14 @@
-import multer from "multer";
-import uuid from "uuid";
-import jimp from "jimp";
-import { join } from "path";
-import User from "../models/user";
+import multer from 'multer';
+import uuid from 'uuid';
+import jimp from 'jimp';
+import { join } from 'path';
+import User from '../models/user';
 
 // init multer config
 const multerOptions = {
   storage: multer.memoryStorage(),
   fileFilter: (req, file, next) => {
-    if (file.mimetype.startsWith("image/")) {
+    if (file.mimetype.startsWith('image/')) {
       next(null, true);
       return;
     }
@@ -16,19 +16,19 @@ const multerOptions = {
   }
 };
 
-export const upload = multer(multerOptions).single("file");
+export const upload = multer(multerOptions).single('file');
 
 export const saveFile = async (req, res, next) => {
   if (!req.file) {
     return next();
   }
-  const extension = req.file.mimetype.split("/")[1];
+  const extension = req.file.mimetype.split('/')[1];
   const fileName = `user${req.params.id || uuid.v4()}.${extension}`;
   let folder;
-  if (process.platform === "win32") {
-    folder = join(process.env.APPDATA, "movies-api", "users");
+  if (process.platform === 'win32') {
+    folder = join(process.env.APPDATA, 'movies-api', 'users');
   } else {
-    folder = join(process.env.HOME, ".config", "movies-api", "users");
+    folder = join(process.env.HOME, '.config', 'movies-api', 'users');
   }
   try {
     const image = await jimp.read(req.file.buffer);
@@ -46,12 +46,12 @@ export const createNoPermission = (req, res) => {
   // Validate request
   if (!req.body.email) {
     return res.status(400).json({
-      message: "Email can not be empty"
+      message: 'Email can not be empty'
     });
   }
   // Create a User
   const user = new User(req.body);
-  user.role = "user";
+  user.role = 'user';
   // Save User in the database
   user
     .save()
@@ -60,7 +60,7 @@ export const createNoPermission = (req, res) => {
     })
     .catch(err => {
       return res.status(500).send({
-        message: err.message || "Some error occurred while creating the User."
+        message: err.message || 'Some error occurred while creating the User.'
       });
     });
 };
@@ -70,7 +70,7 @@ export const create = (req, res) => {
   // Validate request
   if (!req.body.email) {
     return res.status(400).json({
-      message: "Email can not be empty"
+      message: 'Email can not be empty'
     });
   }
   // Create a User
@@ -83,7 +83,7 @@ export const create = (req, res) => {
     })
     .catch(err => {
       return res.status(500).send({
-        message: err.message || "Some error occurred while creating the User."
+        message: err.message || 'Some error occurred while creating the User.'
       });
     });
 };
@@ -100,7 +100,7 @@ export const findAll = (req, res) => {
       })
       .catch(err => {
         return res.status(500).send({
-          message: err.message || "Some error occurred while retrieving users."
+          message: err.message || 'Some error occurred while retrieving users.'
         });
       });
   }
@@ -110,7 +110,7 @@ export const findAll = (req, res) => {
     })
     .catch(err => {
       return res.status(500).send({
-        message: err.message || "Some error occurred while retrieving users."
+        message: err.message || 'Some error occurred while retrieving users.'
       });
     });
 };
@@ -121,19 +121,19 @@ export const findOne = (req, res) => {
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: "User not found with id " + req.params.userId
+          message: 'User not found with id ' + req.params.userId
         });
       }
       return res.status(200).json(user);
     })
     .catch(err => {
-      if (err.kind === "ObjectId") {
+      if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: "User not found with id " + req.params.userId
+          message: 'User not found with id ' + req.params.userId
         });
       }
       return res.status(500).send({
-        message: "Error retrieving user with id " + req.params.userId
+        message: 'Error retrieving user with id ' + req.params.userId
       });
     });
 };
@@ -145,7 +145,7 @@ export const update = (req, res) => {
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: "User not found with id " + req.params.userId
+          message: 'User not found with id ' + req.params.userId
         });
       }
       return res.status(200).json(user);
@@ -153,7 +153,7 @@ export const update = (req, res) => {
     .catch(err => {
       console.error(err);
       return res.status(500).send({
-        message: "Error updating user with id " + req.params.userId
+        message: 'Error updating user with id ' + req.params.userId
       });
     });
 };
@@ -164,15 +164,15 @@ export const remove = (req, res) => {
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: "User not found with id " + req.params.userId
+          message: 'User not found with id ' + req.params.userId
         });
       }
-      return res.status(204).json({ message: "User deleted successfully!" });
+      return res.status(204).json({ message: 'User deleted successfully!' });
     })
     .catch(err => {
       console.error(err);
       return res.status(500).send({
-        message: "Could not delete user with id " + req.params.userId
+        message: 'Could not delete user with id ' + req.params.userId
       });
     });
 };

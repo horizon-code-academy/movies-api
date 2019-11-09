@@ -1,4 +1,4 @@
-import serieModel from "../models/serie";
+import serieModel from '../models/serie';
 
 export const create = async (request, response) => {
   try {
@@ -59,7 +59,7 @@ export const update = async (request, response) => {
 export const deleteOne = async (request, response) => {
   try {
     await serieModel.deleteOne({ _id: request.params.id }).exec();
-    response.send("Serie Deleted");
+    response.send('Serie Deleted');
   } catch (error) {
     response.status(500).send(error);
   }

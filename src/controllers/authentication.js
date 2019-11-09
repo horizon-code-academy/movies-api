@@ -1,5 +1,5 @@
-import jwt from "jwt-simple";
-import { JWTSECRET } from "../config/env";
+import jwt from 'jwt-simple';
+import { JWTSECRET } from '../config/env';
 
 const tokenForUser = (user, exp) =>
   jwt.encode(

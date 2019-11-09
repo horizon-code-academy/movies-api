@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import validator from "validator";
-import bcrypt from "bcryptjs";
+import mongoose from 'mongoose';
+import validator from 'validator';
+import bcrypt from 'bcryptjs';
 
 const userSchema = mongoose.Schema(
   {
@@ -21,8 +21,8 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
-      default: "user"
+      enum: ['admin', 'user'],
+      default: 'user'
     },
     avatar: String
   },
@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
-userSchema.pre("save", function(next) {
+userSchema.pre('save', function(next) {
   const user = this;
   bcrypt.hash(user.password, 10, (err, hash) => {
     if (err) next(err);
@@ -45,7 +45,7 @@ userSchema.pre("save", function(next) {
   });
 });
 
-userSchema.pre("findOneAndUpdate", function(next) {
+userSchema.pre('findOneAndUpdate', function(next) {
   const user = this._update.$set;
   if (user.password) {
     bcrypt.hash(user.password, 10, (err, hash) => {
@@ -62,7 +62,8 @@ userSchema.pre("findOneAndUpdate", function(next) {
   return next();
 });
 
-userSchema.methods.comparePassword = candidatePassword =>
-  bcrypt.compareSync(candidatePassword, this.password);
+userSchema.methods.comparePassword = function(candidatePassword) {
+  return bcrypt.compareSync(candidatePassword, this.password);
+};
 
-export default mongoose.model("user", userSchema);
+export default mongoose.model('user', userSchema);

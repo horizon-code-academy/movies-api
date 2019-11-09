@@ -1,4 +1,4 @@
-import movieModel from "../models/movie";
+import movieModel from '../models/movie';
 
 export const create = async (request, response) => {
   try {
@@ -59,7 +59,7 @@ export const update = async (request, response) => {
 export const deleteOne = async (request, response) => {
   try {
     await movieModel.deleteOne({ _id: request.params.id }).exec();
-    response.send("Movie Deleted");
+    response.send('Movie Deleted');
   } catch (error) {
     response.status(500).send(error);
   }
