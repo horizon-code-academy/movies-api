@@ -3,7 +3,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import User from "../models/user";
 import { JWTSECRET } from "./env";
 
-export const verifyRegister = async (req, res, next) => {
+export const verifyCredentials = async (req, res, next) => {
   try {
     if (!req.body.email) {
       return res
@@ -16,7 +16,6 @@ export const verifyRegister = async (req, res, next) => {
         .json({ code: 103, error: "Password cannot be empty" });
     }
     const user = await User.findOne({ email: req.body.email });
-
     if (!user) {
       return res.status(401).json({ code: 143, error: "Wrong email" });
     }

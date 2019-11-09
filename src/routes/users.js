@@ -12,7 +12,7 @@ import { createNoPermission } from "../controllers/user";
 
 export default function(router) {
   // Create a new user without permissions!
-  router.post("/register", createNoPermission);
+  router.post("/register", upload, saveFile, createNoPermission);
 
   // Create a new user
   router.post("/users", requireAuth, requireAdmin, create);

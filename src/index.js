@@ -2,7 +2,6 @@ import Express from "express";
 import BodyParser from "body-parser";
 import fs from "fs";
 import path from "path";
-import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
 import { port } from "./config/env";
@@ -35,13 +34,8 @@ const app = Express();
 // enable CORS
 app.use(cors());
 
-// morgan is just a logger to log responses in the console.
-app.use(morgan("combined"));
 // helmet is a package to add some security headers to the responses.
 app.use(helmet());
-
-// serve static files (images...) from public folder.
-app.use(Express.static(path.join(__dirname, "../public")));
 
 // serve static files (images...) from upload folder project created .
 if (process.platform === "win32") {

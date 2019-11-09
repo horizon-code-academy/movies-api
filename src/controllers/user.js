@@ -4,20 +4,16 @@ import jimp from "jimp";
 import { join } from "path";
 import User from "../models/user";
 
-// upload image middelwer
-const storage = multer.memoryStorage();
-
-const fileFilter = (req, file, next) => {
-  if (file.mimetype.startsWith("image/")) {
-    next(null, true);
-    return;
-  }
-  next(null, false);
-};
-
+// init multer config
 const multerOptions = {
-  storage,
-  fileFilter
+  storage: multer.memoryStorage(),
+  fileFilter: (req, file, next) => {
+    if (file.mimetype.startsWith("image/")) {
+      next(null, true);
+      return;
+    }
+    next(null, false);
+  }
 };
 
 export const upload = multer(multerOptions).single("file");
@@ -38,7 +34,7 @@ export const saveFile = async (req, res, next) => {
     const image = await jimp.read(req.file.buffer);
     await image.resize(jimp.AUTO, 360);
     await image.write(`${folder}/${fileName}`);
-    req.body.image = `/files/users/${fileName}`;
+    req.body.avatar = `/files/users/${fileName}`;
     next();
   } catch (e) {
     next(e);
@@ -74,13 +70,11 @@ export const create = (req, res) => {
   // Validate request
   if (!req.body.email) {
     return res.status(400).json({
-      message: "email can not be empty"
+      message: "Email can not be empty"
     });
   }
   // Create a User
   const user = new User(req.body);
-  const initials = User.getInitials();
-  user.initials = initials;
   // Save User in the database
   user
     .save()
