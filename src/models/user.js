@@ -31,22 +31,32 @@ const userSchema = mongoose.Schema(
   }
 );
 
-userSchema.pre("save", next => {
+userSchema.pre("save", function(next) {
   const user = this;
   bcrypt.hash(user.password, 10, (err, hash) => {
-    if (err) return next(err);
-    user.password = hash;
-    return next();
+    if (err) next(err);
+    try {
+      user.password = hash;
+      return next();
+    } catch (err) {
+      console.error(err);
+      return next(err);
+    }
   });
 });
 
-userSchema.pre("findOneAndUpdate", next => {
+userSchema.pre("findOneAndUpdate", function(next) {
   const user = this._update.$set;
   if (user.password) {
     bcrypt.hash(user.password, 10, (err, hash) => {
-      if (err) return next(err);
-      user.password = hash;
-      return next();
+      if (err) next(err);
+      try {
+        user.password = hash;
+        return next();
+      } catch (error) {
+        console.error(error);
+        return next(error);
+      }
     });
   }
   return next();

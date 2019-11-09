@@ -21,11 +21,11 @@ export default function(router) {
   router.get("/users", requireAuth, requireAdmin, findAll);
 
   // Retrieve a single User with userId
-  router.get("/users/:userId", requireAuth, requireAdmin, findOne);
+  router.get("/user/:userId", requireAuth, requireAdmin, findOne);
 
   // Update a User with userId
   router.put(
-    "/users/:userId",
+    "/user/:userId",
     requireAuth,
     requireAdmin,
     upload,
@@ -34,5 +34,5 @@ export default function(router) {
   );
 
   // Delete a User with userId
-  router.delete("/users/:userId", requireAuth, requireAdmin, remove);
+  router.delete("/user/:userId", requireAuth, requireAdmin, remove);
 }

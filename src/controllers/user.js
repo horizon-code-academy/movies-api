@@ -46,7 +46,7 @@ export const createNoPermission = (req, res) => {
   // Validate request
   if (!req.body.email) {
     return res.status(400).json({
-      message: "email can not be empty"
+      message: "Email can not be empty"
     });
   }
   // Create a User
