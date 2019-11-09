@@ -1,3 +1,4 @@
+import { requireAuth, requireAdmin } from "../config/passport";
 import {
   create,
   getAll,
@@ -9,20 +10,20 @@ import {
 
 export default function(router) {
   // Create movie end-point
-  router.post("/movie", create);
+  router.post("/movie", requireAuth, requireAdmin, create);
 
   // Get movies list end-point
-  router.get("/movies", getAll);
+  router.get("/movies", requireAuth, getAll);
 
   // Get movies list paginated end-point
-  router.get("/movies/:pagesize/:pagenum", getPage);
+  router.get("/movies/:pagesize/:pagenum", requireAuth, getPage);
 
   // Get movie end-point
-  router.get("/movie/:id", getOne);
+  router.get("/movie/:id", requireAuth, getOne);
 
   // Update movie end-point
-  router.put("/movie/:id", update);
+  router.put("/movie/:id", requireAuth, requireAdmin, update);
 
   // Delete movie end-point
-  router.delete("/movie/:id", deleteOne);
+  router.delete("/movie/:id", requireAuth, requireAdmin, deleteOne);
 }
