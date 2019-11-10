@@ -100,3 +100,4 @@ public
 yarn.lock
 package.jason
 .idea/
+build/
