@@ -11,11 +11,11 @@
   },
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": 0,
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "no-console": ["warn", { "allow": ["error", "info", "warn"] }],
     "max-len": ["warn", { "code": 120 }],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
   }
 }
