@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import moviesRouter from './movies';
-import seriesRoutes from './series';
+import seriesRouter from './series';
 import usersRouter from './users';
 import authRouter from './authentication';
 
@@ -21,6 +21,6 @@ usersRouter(router);
 // Movies routes
 moviesRouter(router);
 // series routes
-seriesRoutes(router);
+seriesRouter(router);
 
 export default router;
