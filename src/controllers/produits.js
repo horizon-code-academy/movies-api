@@ -1,8 +1,8 @@
-import serieModel from '../models/serie';
+import produitModel from '../models/produit';
 
 export const create = async (request, response) => {
   try {
-    const newSerie = new serieModel(request.body);
+    const newSerie = new produitModel(request.body);
     let result = await newSerie.save();
     response.send(result);
   } catch (error) {
@@ -12,7 +12,7 @@ export const create = async (request, response) => {
 
 export const getAll = async (request, response) => {
   try {
-    let result = await serieModel.find().exec();
+    let result = await produitModel.find().exec();
     response.send(result);
   } catch (error) {
     response.status(500).send(error);
@@ -20,7 +20,7 @@ export const getAll = async (request, response) => {
 };
 
 export const getPage = (request, response) => {
-  serieModel
+  produitModel
     .paginate(
       {},
       {
@@ -38,8 +38,8 @@ export const getPage = (request, response) => {
 
 export const getOne = async (request, response) => {
   try {
-    const serie = await serieModel.findById(request.params.id).exec();
-    response.send(serie);
+    const produit = await produitModel.findById(request.params.id).exec();
+    response.send(produit);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -47,9 +47,9 @@ export const getOne = async (request, response) => {
 
 export const update = async (request, response) => {
   try {
-    await serieModel.findOneAndUpdate({ _id: request.params.id }, request.body);
-    const serie = await serieModel.findById(request.params.id).exec();
-    response.send(serie);
+    await produitModel.findOneAndUpdate({ _id: request.params.id }, request.body);
+    const produit = await produitModel.findById(request.params.id).exec();
+    response.send(produit);
   } catch (error) {
     console.error(error);
     response.status(500).send(error);
@@ -58,7 +58,7 @@ export const update = async (request, response) => {
 
 export const deleteOne = async (request, response) => {
   try {
-    await serieModel.deleteOne({ _id: request.params.id }).exec();
+    await produitModel.deleteOne({ _id: request.params.id }).exec();
     response.send('Serie Deleted');
   } catch (error) {
     response.status(500).send(error);

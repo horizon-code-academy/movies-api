@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import paginate from 'mongoose-paginate';
 
-// Movie schema
-const movieSchema = new mongoose.Schema(
+// Serie schema
+const produitSchema = new mongoose.Schema(
   {
     title: String,
     year: { type: Number, min: 1900, max: 2019 },
@@ -15,8 +15,8 @@ const movieSchema = new mongoose.Schema(
   }
 );
 
-// Plugin to paginate movies list.
-movieSchema.plugin(paginate);
+// Plugin to paginate produits list.
+produitSchema.plugin(paginate);
 
-// export Movie model
-export default mongoose.model('movie', movieSchema);
+// export produit model
+export default mongoose.model('produit', produitSchema);

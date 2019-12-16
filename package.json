@@ -1,5 +1,5 @@
 {
-  "name": "movies-api",
+  "name": "gestion-api",
   "description": "A web filmography API with Nodejs Express & MongoDB. 🎥🍿",
   "version": "1.0.4",
   "main": "index.js",

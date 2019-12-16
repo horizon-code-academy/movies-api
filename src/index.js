@@ -13,9 +13,9 @@ import './config/db';
 // folder of uploaded file: create folder project
 let directory;
 if (process.platform === 'win32') {
-  directory = path.join(process.env.APPDATA, 'movies-api');
+  directory = path.join(process.env.APPDATA, 'gestion-api');
 } else {
-  directory = path.join(process.env.HOME, '.config', 'movies-api');
+  directory = path.join(process.env.HOME, '.config', 'gestion-api');
 }
 fs.exists(directory, exists => {
   if (!exists) {
@@ -39,9 +39,9 @@ app.use(helmet());
 
 // serve static files (images...) from upload folder project created .
 if (process.platform === 'win32') {
-  app.use('/files', Express.static(path.join(process.env.APPDATA, 'movies-api')));
+  app.use('/files', Express.static(path.join(process.env.APPDATA, 'gestion-api')));
 } else {
-  app.use('/files', Express.static(path.join(process.env.HOME, '.config', 'movies-api')));
+  app.use('/files', Express.static(path.join(process.env.HOME, '.config', 'gestion-api')));
 }
 
 // enable body parser

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import paginate from 'mongoose-paginate';
 
-// Serie schema
-const serieSchema = new mongoose.Schema(
+// Movie schema
+const clientSchema = new mongoose.Schema(
   {
     title: String,
     year: { type: Number, min: 1900, max: 2019 },
@@ -15,8 +15,8 @@ const serieSchema = new mongoose.Schema(
   }
 );
 
-// Plugin to paginate series list.
-serieSchema.plugin(paginate);
+// Plugin to paginate clients list.
+clientSchema.plugin(paginate);
 
-// export serie model
-export default mongoose.model('serie', serieSchema);
+// export Movie model
+export default mongoose.model('client', clientSchema);
